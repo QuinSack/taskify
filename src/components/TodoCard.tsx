@@ -11,15 +11,22 @@ interface Props{
 }
 
 const TodoCard = ({todo, todos, setTodos}:Props) => {
+    const handleCompleted = (id: number) => {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, isDone: !todo.isDone} : todo))
+    }
   return (
     <form className='todos__single'>
-        <span className='todos__single--text'>
-            {todo.todo}
-        </span>
+        {
+            todo.isDone ? (
+                <s className='todos__single--text'>{todo.todo}</s>
+            ):(
+                <span className='todos__single--text'>{todo.todo}</span>
+            )
+        }
         <div>
             <span className='icon'><AiFillEdit /></span>
             <span className='icon'><AiOutlineDelete /></span>
-            <span className='icon'><IoMdCheckmark /></span>
+            <span className='icon' onClick={()=>handleCompleted(todo.id)}><IoMdCheckmark /></span>
         </div>
     </form>
   )
