@@ -14,6 +14,10 @@ const TodoCard = ({todo, todos, setTodos}:Props) => {
     const handleCompleted = (id: number) => {
         setTodos(todos.map(todo => todo.id === id ? {...todo, isDone: !todo.isDone} : todo))
     }
+
+    const handleDelete = (id: number) => {
+        setTodos(todos.filter((todo) => todo.id!== id))
+    }
   return (
     <form className='todos__single'>
         {
@@ -25,7 +29,7 @@ const TodoCard = ({todo, todos, setTodos}:Props) => {
         }
         <div>
             <span className='icon'><AiFillEdit /></span>
-            <span className='icon'><AiOutlineDelete /></span>
+            <span className='icon' onClick={()=>handleDelete(todo.id)}><AiOutlineDelete /></span>
             <span className='icon' onClick={()=>handleCompleted(todo.id)}><IoMdCheckmark /></span>
         </div>
     </form>
